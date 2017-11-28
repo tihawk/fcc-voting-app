@@ -13,11 +13,15 @@
     "angular": "^1.6.7",
     "angular-jwt": "^0.1.9",
     "angular-route": "^1.6.7",
+    "bcrypt": "^1.0.3",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "jquery": "^3.2.1",
-    "mongoose": "^4.13.5"
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.5",
+    "save": "^2.3.1"
   }
 }

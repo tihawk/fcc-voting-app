@@ -3,6 +3,13 @@
     <h3 class="panel-title">{{title}}</h3>
   </div>
   <div class="panel-body">
-    Panel content
+  	  <div class="errMsg" ng-if="error">{{error}}</div>
+	  <form class="form-signin" ng-submit="login()">
+	    <label for="inputUsername" class="sr-only">Username</label>
+	    <input type="text" id="inputUsername" class="form-control" placeholder="Username" ng-model="user.name" required autofocus>
+	    <label for="inputPassword" class="sr-only">Password</label>
+	    <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="user.password" required>
+	    <button class="btn btn-lg btn-success btn-block" type="submit">Log In</button>
+	  </form>
   </div>
 </div>
