@@ -1,0 +1,23 @@
+{
+  "name": "voting-app",
+  "version": "1.0.0",
+  "description": "A simple voting app MEAN",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Kiril P. Blagoev",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.7",
+    "angular-jwt": "^0.1.9",
+    "angular-route": "^1.6.7",
+    "body-parser": "^1.18.2",
+    "bootstrap": "^3.3.7",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "jquery": "^3.2.1",
+    "mongoose": "^4.13.5"
+  }
+}
