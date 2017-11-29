@@ -28,26 +28,6 @@ router.put('/polls/vote/', (req, res)=>{
 			}
 		})
 	}
-	/*Poll.findOne({_id: pollId}, (err, poll)=>{
-		if(err){
-			res.status(404).send(err);
-		} else {
-			for(option of poll.options){
-				//console.log(option._id);
-				if(option._id.toString() === vote){
-					option.votes++;
-					poll.save((err, doc)=>{
-						if(err) {
-							res.status(400).send(err);
-						} else {
-							res.status(200).send(doc);
-						}
-					})
-				}
-			}
-			//res.status(400).send('Could not find option in poll');
-		}
-	});*/
 });
 
 router.get('/polls/:id', (req, res)=>{

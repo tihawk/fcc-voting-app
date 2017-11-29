@@ -62,13 +62,15 @@
   <div class="panel-body" ng-init="getPolls()">
     <p>{{myPolls.descr}}</p>
     <ul class="list-group">
-      <div class="dropdown" ng-repeat="poll in polls">
-        <button class="btn btn-default dropdown-toggle list-group-item" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      <div class="dropdown row" ng-repeat="poll in polls">
+        <button class="btn btn-default dropdown-toggle col-md-11 col-xs-9" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           {{poll.name}}
         </button>
+        <a class="btn btn-info pull-right col-md-1 col-xs-3" href="https://twitter.com/intent/tweet?text={{tweetLink+poll._id}}" target="_blank">Twitter</a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
           <li ng-repeat="option in poll.options"><a href="">{{option.name}} - {{option.votes}} votes</a></li>
           <li role="separator" class="divider"></li>
+
           <li class="btn-warning"><a href="" ng-click="editPoll(poll);">Edit Poll</a></li>
           <li class="btn-danger"><a href="" ng-click="deletePoll(poll._id);">Delete Poll (irreversible!)</a></li>
         </ul>

@@ -4,6 +4,7 @@ app.controller('ProfileController', ['$scope', '$http', '$window','jwtHelper', f
 	var token = $window.localStorage.token;
 
 	$scope.isEditing = false;
+	$scope.tweetLink = 'https://fcc-vote-in.herokuapp.com/%23/polls/'
 
 	$scope.profile = {
 		title: jwtHelper.decodeToken(token).data.name + '\'s profile page',
