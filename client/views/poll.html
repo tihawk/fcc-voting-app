@@ -8,7 +8,7 @@
     	<form ng-submit="vote()" class="col-md-6 col-xs-6">
         <div class="form-group">
           <label for="sel1">Options:</label>
-          <select class="form-control" id="sel1" ng-model="chosenOption">
+          <select class="form-control" id="sel1">
             <option ng-repeat="option in poll.options" ng-value="{{option}}">{{option.name}}</option>
           </select>
           <input type="text" class="form-control" ng-if="other" ng-model="chosenOption.name" required>
