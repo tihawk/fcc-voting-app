@@ -1,0 +1,1 @@
+# A MEAN stack voting application written for a Free Code Camp base-jump.

@@ -3,6 +3,66 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const Poll = require('../models/polls');
+
+router.put('/polls/:id', (req, res)=>{
+	var update = req.body;
+	Poll.findOneAndUpdate({_id: req.params.id}, update, {}, (err, doc)=>{
+		if(err){
+			res.status(400).send(err);
+		} else {
+			res.status(200).send(doc);
+		}
+	});
+});
+
+router.delete('/polls/:id', (req, res)=>{
+	var id = req.params.id;
+	Poll.remove({_id: id}, (err, doc)=>{
+		if(err){
+			res.status(400).send(err);
+		} else {
+			res.status(200).send(doc);
+		}
+	})
+})
+
+router.get('/polls/user/:userId', (req, res)=>{
+	var userId = req.params.userId;
+	Poll.find({owner: userId}, (err, doc)=>{
+		if(err){
+			res.status(400).send(err);
+		} else {
+			res.status(200).send(doc);
+		}
+	});
+});
+
+router.get('/polls', (req, res)=>{
+	Poll.find({}, (err, doc)=>{
+		if(err){
+			res.status(400).send(err);
+		} else {
+			res.status(200).send(doc);
+		}
+	});
+});
+
+router.post('/polls', authenticate, (req, res)=>{
+	var poll = new Poll();
+	poll.name = req.body.name;
+	poll.options = req.body.options;
+	poll.owner = req.body.owner;
+
+	poll.save((err, doc)=>{
+		if(err){
+			res.status(400).send(err);
+		} else {
+			res.status(200).send(doc);
+		}
+	})
+	
+});
 
 router.post('/verify_token', (req, res)=>{
 	if(req.body.token){
@@ -10,7 +70,7 @@ router.post('/verify_token', (req, res)=>{
 			if(err){
 				res.status(400).send('Invalid token');
 			} else {
-				res.status(200);
+				res.status(200).send('Valid token');
 			}
 		})
 	} else {
@@ -63,5 +123,20 @@ router.post('/register', (req, res)=>{
 		res.status(400).send('Error sending to API');
 	}
 });
+
+function authenticate(req, res, next){
+	if(req.headers.authorization){
+		var token = req.headers.authorization.split(' ')[1];
+		jwt.verify(token, process.env.SECRET, (err, decoded)=>{
+			if(err){
+				return res.status(401).send('Invalid token');
+			} else {
+				next();
+			}
+		});
+	} else {
+		return res.status(403).send('No token');
+	}
+}
 
 module.exports = router;

@@ -37,3 +37,9 @@
   color: red;
   font-family: monospace;
 }
+
+.btn-edit{
+  position: relative;
+  top: -0.6em;
+  margin-left:0.5em;
+}

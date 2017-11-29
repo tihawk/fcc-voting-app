@@ -10,7 +10,8 @@ app.controller('LoginController', ['$scope', '$http', '$window', '$location', fu
 				//save token to local storage
 				$window.localStorage.token = response.data;
 				$scope.error = undefined;
-				$location.path('/profile');
+				$window.location.reload();
+				$window.location.href = '#/profile';
 			}, error=>{
 				$scope.error = error.data;
 			});

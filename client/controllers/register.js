@@ -10,7 +10,8 @@ app.controller('RegisterController', ['$scope', '$http', '$window', '$location',
 				//save token to local storage
 				$window.localStorage.token = response.data;
 				$scope.error = undefined;
-				$location.path('/profile');
+				$window.location.reload();
+				$window.location.href = "#/profile";
 			}, error=>{
 				if(error.data.errmsg.indexOf('E11000 duplicate key error index')!==-1){
 					$scope.error = 'Username already taken';

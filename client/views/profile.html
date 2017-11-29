@@ -1,9 +1,55 @@
-<div class="panel panel-default">
+<div class="panel panel-default" ng-init="emptyPoll()">
   <div class="panel-heading">
-    <h3 class="panel-title">{{title}}</h3>
+    <h3 class="panel-title">{{profile.title}}</h3>
   </div>
   <div class="panel-body">
-    <h2>Welcome back, {{name}}!</h2>
+    <h2>{{profile.welcome}}</h2>
+    <p>{{profile.descr}}</p>
     <button class="btn btn-danger" ng-click="logout()">Log Out</button>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{create.title}}</h3>
+  </div>
+  <div class="panel-body">
+    <p>{{create.descr}}</p>
+    <form ng-submit="createPoll()">
+    	<label for="inputPollName" class="sr-only">Poll Name</label>
+		<input type="text" id="inputPollName" class="form-control" placeholder="Poll Name" ng-model="newPoll.name" required autofocus>
+	    <div class="row">
+	    	<div class="col-md-9 col-xs-7">
+		    	<input type="text" class="form-control" placeholder="Option" ng-model="newPoll.options[$index].name" ng-repeat="option in newPoll.options" required>
+			</div>
+			<button class="btn btn-danger col-md-1 col-xs-2 glyphicon glyphicon-minus pull-left" type="button" ng-click="removeOption()"></button>	
+			<button class="btn btn-info col-md-1 col-xs-2 glyphicon glyphicon-plus pull-left" type="button" ng-click="addOption()"></button>
+		</div>
+	    <button class="btn btn-success btn-block" type="submit" ng-if="!isEditing">Create Poll</button>
+      <button class="btn btn-warning btn-block" type="button" ng-if="isEditing" ng-click="updatePoll()">Update Poll</button>
+      <button class="btn btn-danger btn-block" type="button" ng-if="isEditing" ng-click="cancelEdit()">Cancel Edit</button>
+	    <p class="errMsg" ng-iff="create.error">{{create.error}}</p>
+	</form>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{edit.title}}</h3>
+  </div>
+  <div class="panel-body" ng-init="getPolls()">
+    <p>{{edit.descr}}</p>
+    <p class="errMsg" ng-if="edit.error">{{edit.error}}</p>
+    <ul class="list-group">
+      <div class="dropdown" ng-repeat="poll in polls">
+        <button class="btn btn-default dropdown-toggle list-group-item" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          {{poll.name}}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li ng-repeat="option in poll.options"><a href="">{{option.name}} - {{option.votes}} votes</a></li>
+          <li role="separator" class="divider"></li>
+          <li class="btn-warning"><a href="" ng-click="editPoll(poll);">Edit Poll</a></li>
+          <li class="btn-danger"><a href="" ng-click="deletePoll(poll._id);">Delete Poll (irreversible!)</a></li>
+        </ul>
+      </div>
+    </ul>
   </div>
 </div>
