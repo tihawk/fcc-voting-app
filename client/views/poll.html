@@ -1,8 +1,26 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{title}}</h3>
+<div class="panel panel-default" ng-init="initCtx()">
+  <div class="panel-heading" ng-init="getPoll()">
+    <h3 class="panel-title">{{poll.name}}</h3>
   </div>
   <div class="panel-body">
-    Panel content
+  	<p class="errMsg" ng-if="error">{{error}}</p>
+    <div class="row">
+    	<form ng-submit="vote()" class="col-md-6 col-xs-6">
+        <div class="form-group">
+          <label for="sel1">Options:</label>
+          <select class="form-control" id="sel1" ng-model="chosenOption">
+            <option ng-repeat="option in poll.options" ng-value="{{option}}">{{option.name}}</option>
+          </select>
+          <input type="text" class="form-control" ng-if="other" ng-model="chosenOption.name" required>
+          <button class="btn btn-warning btn-block" ng-if="!other && !voted" type="button" ng-click="voteOther()">Other...</button>
+          <button class="btn btn-success btn-block" type="submit" ng-if="!voted">Vote</button>
+        </div>
+      </form>
+      <div class="col-md-6 col-xs-6">
+        <canvas id="myChart" width="200" height="200"></canvas>
+      </div>
+    </div>
   </div>
 </div>
+
+<script src="/controllers/polls.js"></script>

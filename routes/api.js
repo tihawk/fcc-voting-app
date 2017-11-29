@@ -5,6 +5,61 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const Poll = require('../models/polls');
 
+router.put('/polls/vote/', (req, res)=>{
+	var poll = req.body.poll;
+	var votedFor = req.body.votedFor;
+	var isUpdated = false;
+	for(option of poll.options){
+		if(option._id === votedFor._id){
+			option.votes++;
+			isUpdated = true;
+		}
+	}
+	if(!isUpdated){
+		poll.options = poll.options.concat(votedFor);
+		isUpdated = true;
+	}
+	if(isUpdated){
+		Poll.findOneAndUpdate({_id: poll._id}, poll, {}, (err, doc)=>{
+			if(err){
+				res.status(400).send(err);
+			} else {
+				res.status(200).send(doc);
+			}
+		})
+	}
+	/*Poll.findOne({_id: pollId}, (err, poll)=>{
+		if(err){
+			res.status(404).send(err);
+		} else {
+			for(option of poll.options){
+				//console.log(option._id);
+				if(option._id.toString() === vote){
+					option.votes++;
+					poll.save((err, doc)=>{
+						if(err) {
+							res.status(400).send(err);
+						} else {
+							res.status(200).send(doc);
+						}
+					})
+				}
+			}
+			//res.status(400).send('Could not find option in poll');
+		}
+	});*/
+});
+
+router.get('/polls/:id', (req, res)=>{
+	Poll.findOne({_id: req.params.id}, (err, doc)=>{
+		if(err){
+			res.status(404).send(err);
+		} else {
+			res.status(200).send(doc);
+		}
+	});
+});
+
 router.put('/polls/:id', (req, res)=>{
 	var update = req.body;
 	Poll.findOneAndUpdate({_id: req.params.id}, update, {}, (err, doc)=>{
@@ -31,7 +86,7 @@ router.get('/polls/user/:userId', (req, res)=>{
 	var userId = req.params.userId;
 	Poll.find({owner: userId}, (err, doc)=>{
 		if(err){
-			res.status(400).send(err);
+			res.status(404).send(err);
 		} else {
 			res.status(200).send(doc);
 		}

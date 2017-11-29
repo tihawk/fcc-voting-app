@@ -58,7 +58,7 @@ app.config(($routeProvider, $locationProvider)=>{
 		}
 	})
 	.when('/polls/:id', {
-		controller: 'PollController',
+		controller: 'PollsController',
 		templateUrl: 'views/poll.html',
 		access: {
 			restricted: false

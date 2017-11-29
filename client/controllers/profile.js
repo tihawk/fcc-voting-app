@@ -17,9 +17,14 @@ app.controller('ProfileController', ['$scope', '$http', '$window','jwtHelper', f
 		error: ''
 	};
 
-	$scope.edit = {
+	$scope.myPolls = {
 		title: 'Your polls',
 		descr: 'Here you can view, edit and delete the polls submitted by you.',
+	}
+
+	$scope.edit = {
+		title: 'Edit your poll',
+		descr: 'You can add more options, and hit "Update Poll" to submit the changes.',
 		error: null
 	}
 
@@ -37,7 +42,7 @@ app.controller('ProfileController', ['$scope', '$http', '$window','jwtHelper', f
 	};
 
 	$scope.addOption = function(){
-		if(this.poll.options[this.newPoll.options.length-1].name!==''){
+		if(this.newPoll.options[this.newPoll.options.length-1].name!==''){
 			this.newPoll.options.push({
 				name: '',
 				votes: 0
@@ -91,7 +96,20 @@ app.controller('ProfileController', ['$scope', '$http', '$window','jwtHelper', f
 	$scope.editPoll = function(poll){
 		$scope.newPoll = poll;
 		$scope.isEditing = true;
+		$scope.newOptions = [{
+			name: '',
+			votes: 0
+		}];
 	};
+
+	$scope.addOptionEdit = function(){
+		if(this.newOptions[this.newOptions.length-1].name!==''){
+			this.newOptions.push({
+				name: '',
+				votes: 0
+			})
+		}
+	}
 
 	$scope.cancelEdit = function(){
 		$scope.isEditing = false;
@@ -99,6 +117,7 @@ app.controller('ProfileController', ['$scope', '$http', '$window','jwtHelper', f
 	}
 
 	$scope.updatePoll = function(){
+		$scope.newPoll.options = $scope.newPoll.options.concat($scope.newOptions);
 		$http.put('/api/polls/' + $scope.newPoll._id, $scope.newPoll)
 			.then(response=>{
 				$scope.isEditing = false;

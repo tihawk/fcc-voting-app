@@ -5,7 +5,7 @@
   <div class="panel-body">
   	<p class="errMsg" ng-if="error">{{error}}</p>
     <ul class="list-group">
-	  <a ng-href="#/profile" ng-repeat="poll in polls"><li class="list-group-item">{{poll.name}}</li></a>
+	  <a ng-href="#/polls/{{poll._id}}" ng-repeat="poll in polls"><li class="list-group-item">{{poll.name}}</li></a>
 	</ul>
   </div>
 </div>
