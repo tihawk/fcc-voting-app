@@ -26,7 +26,6 @@ app.controller('PollsController', ['$scope', '$http', '$routeParams', '$window',
 				$scope.error = null;
 				$scope.poll = response.data;
 				//populate chart data and draw
-				
 				$scope.draw();
 
 			}, error=>{
@@ -36,19 +35,19 @@ app.controller('PollsController', ['$scope', '$http', '$routeParams', '$window',
 
 	$scope.voted = false;
 	$scope.other = false;
-	$scope.chosenOption = {
-		name: '',
-		votes: 0
-	};
-	$scope.otherOption = {
+	$scope.chosenOption;
+	/*$scope.otherOption = {
 		name: '',
 		votes: 1
-	};
+	};*/
 
 	$scope.voteOther = function(){
 		if($window.localStorage.token){
 			$scope.other = true;
-			$scope.chosenOption.votes = 1;
+			$scope.chosenOption = {
+				name: '',
+				votes: 1
+			};
 		} else {
 			$window.location.href = '#/login'
 		}
